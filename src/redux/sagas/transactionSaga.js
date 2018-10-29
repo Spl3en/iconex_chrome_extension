@@ -114,7 +114,7 @@ export function* getTxFeeInfoFunc(action) {
         } else {
           const data = yield select(state => state.exchangeTransaction.data);
           const dataType = yield select(state => state.exchangeTransaction.dataType);
-          const txFeeLimit = data.length > 0 ? parseInt(txFeeLimitTable['default'], 16) + parseInt(txFeeLimitTable['input'], 16) * (dataType === 'utf8' ? (getHexByteLength(checkLength(dataToHex(data)))) : getHexByteLength(data.length))
+          const txFeeLimit = data.length > 0 ? parseInt(txFeeLimitTable['default'], 16) + parseInt(txFeeLimitTable['input'], 16) * (dataType === 'utf8' ? checkLength(dataToHex(data)) : data.length)
                                              : parseInt(txFeeLimitTable['default'], 16)
           yield put({type: AT.getTxFeeInfoFulfilled, payload: {
            txFeePrice: txFeePriceStep,
